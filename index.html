@@ -106,28 +106,27 @@ function test(len,start){
         rowsSpan = parseInt(table.rows[k].cells[0].getAttribute("rowSpan")) || 1;
         cellsLen = table.rows[k].cells.length;
 
-        if( (k+rowsSpan) < len && cellsLen == 4 ){
+        if(cellsLen == 4){
+            if( (k+rowsSpan) < len ){
 
-            if(table.rows[k].cells[0].innerHTML == table.rows[k+rowsSpan].cells[0].innerHTML){
-                table.rows[k+rowsSpan].deleteCell(0);
-                table.rows[k].cells[0].setAttribute("rowSpan", parseInt(table.rows[k].cells[0].getAttribute("rowSpan") || 1 ) + 1 );
+                if(table.rows[k].cells[0].innerHTML == table.rows[k+rowsSpan].cells[0].innerHTML){
+                    table.rows[k+rowsSpan].deleteCell(0);
+                    table.rows[k].cells[0].setAttribute("rowSpan", parseInt(table.rows[k].cells[0].getAttribute("rowSpan") || 1 ) + 1 );
+                    test(len);
 
-                if(len==0){
-                    return false;
+                    
+                }else{
+                    test(len,k+rowsSpan);                
                 }
-                test(len-1);
 
-                
-            }else{
-                test(len-1,k+rowsSpan);                
             }
-
         }
+        
 
         k++;
     }
 
-} 
+}
 
 
 
