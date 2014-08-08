@@ -3,6 +3,8 @@ mergeTableFirstCell
 
 合并表格相邻行内容相同的第一个单元格
 
+注意:初始化状态下的列数需要一致,比如4列
+
 <table id="J_table" class="m-table">
         <tbody><tr>
             <th>abcde</th>
