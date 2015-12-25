@@ -51,11 +51,11 @@ mergeRowsCell.prototype.getCellMark = function(ele) {
 
     return markArr;
 };
-//下一个节点
+//查找节点
 //@param {ele} element
 //@param {row} Number
 //@param {col} Number
-mergeRowsCell.prototype.next = function(ele, row, col) {
+mergeRowsCell.prototype.findNode = function(ele, row, col) {
     return ele.querySelector('th[data-mark="' + (row + '.' + col) + '"]') || ele.querySelector('td[data-mark="' + (row + '.' + col) + '"]');
 };
 mergeRowsCell.prototype.merge = function(start, col) {
@@ -63,25 +63,22 @@ mergeRowsCell.prototype.merge = function(start, col) {
         table = this.box,
         start = start || this.start,
         col = col || this.col,
-        next;
+        now, next;
+
+    now = this.findNode(table, start, this.col);
+    rowsSpan = now ? now.rowSpan : 1;
+    next = this.findNode(table, start + rowsSpan, this.col);
 
     while (start < this.rowsLength - 1) {
-        rowsSpan = table.rows[start].cells[this.col].rowSpan;
+        next = this.findNode(table, start + rowsSpan, this.col);
+        if (now.innerHTML == next.innerHTML) {
 
-        next = this.next(table, start + rowsSpan, this.col);
-        // console.log(next);
-        if (!next) {
-            return false;
-        }
-
-        if (table.rows[start].cells[this.col].innerHTML == next.innerHTML) {
-
-            table.rows[start].cells[this.col].rowSpan += 1;            
+            now.rowSpan += 1;
             next.parentNode.removeChild(next);
-            // table.rows[start + rowsSpan].deleteCell(this.col);
             start += 1;
         } else {
             start += rowsSpan;
+            now = this.findNode(table, start, this.col);
         }
 
         this.merge(start, col);
