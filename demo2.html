@@ -2,7 +2,7 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <title>Document</title>    
+    <title>合并相邻行内容相同的纵向单元格</title>    
     <style>
         /* reset */
         html,body,h1,h2,h3,h4,h5,h6,div,dl,dt,dd,ul,ol,li,p,blockquote,pre,hr,figure,table,caption,th,td,form,fieldset,legend,input,button,textarea,menu{margin:0;padding:0;}
@@ -34,7 +34,25 @@
     <table id="J_table" class="m-table">
         <tr>
             <th>abcde</th>
+            <td>content_001</td>
+            <td>content_022</td>
+            <td>content_03</td>
+        </tr>
+        <tr>
+            <th>abc</th>
             <td>content_01</td>
+            <td>content_002</td>
+            <td>content_03</td>
+        </tr>
+        <tr>
+            <th>abc</th>
+            <td>content_01</td>
+            <td>content_02</td>
+            <td>content_03</td>
+        </tr>
+        <tr>
+            <th>abc</th>
+            <td>content_001</td>
             <td>content_02</td>
             <td>content_03</td>
         </tr>
@@ -46,24 +64,6 @@
         </tr>
         <tr>
             <th>abc</th>
-            <td>content_01</td>
-            <td>content_02</td>
-            <td>content_03</td>
-        </tr>
-        <tr>
-            <th>abc</th>
-            <td>content_01</td>
-            <td>content_02</td>
-            <td>content_03</td>
-        </tr>
-        <tr>
-            <th>abc</th>
-            <td>content_01</td>
-            <td>content_02</td>
-            <td>content_03</td>
-        </tr>
-        <tr>
-            <th>abcd</th>
             <td>content_01</td>
             <td>content_02</td>
             <td>content_03</td>
@@ -94,45 +94,10 @@
         </tr>
     </table>
 </div>
+<script src="mergeRowsCell.js"></script>
 <script>
-//合并相邻行内容相同的第一个单元格
-var table = document.getElementById("J_table");
-var trlen = table.rows.length;
-var v = table.rows[0].cells[0].innerHTML;
-
-function test(len,start){
-    var k=start || 0,rowsSpan,cellsLen;
-    while(k<len){
-        rowsSpan = parseInt(table.rows[k].cells[0].getAttribute("rowSpan")) || 1;
-        cellsLen = table.rows[k].cells.length;
-
-        if(cellsLen == 4){
-            if( (k+rowsSpan) < len ){
-
-                if(table.rows[k].cells[0].innerHTML == table.rows[k+rowsSpan].cells[0].innerHTML){
-                    table.rows[k+rowsSpan].deleteCell(0);
-                    table.rows[k].cells[0].setAttribute("rowSpan", parseInt(table.rows[k].cells[0].getAttribute("rowSpan") || 1 ) + 1 );
-                    test(len);
-
-                    
-                }else{
-                    test(len,k+rowsSpan);                
-                }
-
-            }
-        }
-        
-
-        k++;
-    }
-
-}
-
-
-
-test(trlen,0);
-
-
+   var merge = new mergeRowsCell('J_table',0,0);
+   merge.merge(0,1);
 </script>
 </body>
 </html>
