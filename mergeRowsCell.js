@@ -11,7 +11,6 @@ function mergeRowsCell(tableId, col, start) {
     this.box = document.getElementById(tableId); //容器
     this.col = col || 0; //需要合并的列
     this.start = start || 0; //起始行
-    this.initHtml = this.box.rows[this.start].cells[this.col].innerHTML;
     this.rowsLength = this.box.rows.length;
     this.maxLenth = 0;
     this.init();
@@ -28,7 +27,6 @@ mergeRowsCell.prototype.init = function() {
 
     var maxLenth = this.maxLenth = Math.max.apply(Math, colsMap);
 
-
     //初始化时候每个单元格都是存在的,统一加上原始标识,后续无论怎么变化,都可以轻松找到对应的下一行单元格    
     for (var x = 0; x < rowsLen; x++) {
         for (var y = 0; y < maxLenth; y++) {
@@ -38,7 +36,7 @@ mergeRowsCell.prototype.init = function() {
 
 };
 //获取单元格标识
-//@param {mark} elment
+//@param {mark} element
 mergeRowsCell.prototype.getCellMark = function(ele) {
     var markArr = [];
 
@@ -52,35 +50,34 @@ mergeRowsCell.prototype.getCellMark = function(ele) {
     return markArr;
 };
 //查找节点
-//@param {ele} element
 //@param {row} Number
 //@param {col} Number
-mergeRowsCell.prototype.findNode = function(ele, row, col) {
-    return ele.querySelector('th[data-mark="' + (row + '.' + col) + '"]') || ele.querySelector('td[data-mark="' + (row + '.' + col) + '"]');
+mergeRowsCell.prototype.findNode = function(row, col) {
+    return this.box.querySelector('th[data-mark="' + (row + '.' + col) + '"]') || this.box.querySelector('td[data-mark="' + (row + '.' + col) + '"]');
 };
+//合并单元格
+//@param {start} Number
+//@param {col} Number
 mergeRowsCell.prototype.merge = function(start, col) {
-    var rowsSpan,
-        table = this.box,
+    var rowSpan,
         start = start || this.start,
         col = col || this.col,
-        now, next;
+        now, next, temp;
 
-    now = this.findNode(table, start, this.col);
-    rowsSpan = now ? now.rowSpan : 1;
-    next = this.findNode(table, start + rowsSpan, this.col);
+    now = this.findNode(start, col);
+    rowSpan = now ? now.rowSpan : 1;
+    next = this.findNode(start + rowSpan, col);
 
-    while (start < this.rowsLength - 1) {
-        next = this.findNode(table, start + rowsSpan, this.col);
-        if (now.innerHTML == next.innerHTML) {
-
+    while (start < this.rowsLength) {
+        if (next && now.innerHTML == next.innerHTML) {
             now.rowSpan += 1;
             next.parentNode.removeChild(next);
-            start += 1;
+            start = this.getCellMark(now)[0] + now.rowSpan;
+            next = this.findNode(start, col);
         } else {
-            start += rowsSpan;
-            now = this.findNode(table, start, this.col);
+            start = this.getCellMark(next)[0];
+            now = this.findNode(start, col);//next -> now,避免引用..
+            next = this.findNode(this.getCellMark(now)[0] + now.rowSpan, col);
         }
-
-        this.merge(start, col);
     }
 };

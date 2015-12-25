@@ -35,13 +35,13 @@
         <tr>
             <th>abcde</th>
             <td>content_001</td>
-            <td>content_022</td>
+            <td>content_02</td>
             <td>content_03</td>
         </tr>
         <tr>
             <th>abc</th>
             <td>content_01</td>
-            <td>content_002</td>
+            <td>content_02</td>
             <td>content_03</td>
         </tr>
         <tr>
@@ -94,9 +94,13 @@
         </tr>
     </table>
 </div>
-<script src="mergeRowsCellOnlyOne.js"></script>
+<script src="mergeRowsCell.js"></script>
 <script>
-   var merge = new mergeRowsCellOnlyOne('J_table',0,0);
+   var merge = new mergeRowsCell('J_table');
+   merge.merge(0,0);
+   merge.merge(0,1);
+   //...
+   //merge.merge(0,3);
 </script>
 </body>
 </html>
