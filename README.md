@@ -17,20 +17,16 @@
             <td>content_02</td>
             <td>content_03</td>
         </tr>
-        <tr>
-            
-            <td>content_01</td>
+        <tr>            
+            <td rowspan="2">content_001</td>
             <td>content_02</td>
             <td>content_03</td>
         </tr>
-        <tr>
-            
-            <td>content_01</td>
+        <tr> 
             <td>content_02</td>
             <td>content_03</td>
         </tr>
-        <tr>
-            
+        <tr>            
             <td>content_01</td>
             <td>content_02</td>
             <td>content_03</td>
@@ -41,8 +37,7 @@
             <td>content_02</td>
             <td>content_03</td>
         </tr>
-        <tr>
-            
+        <tr>            
             <td>content_01</td>
             <td>content_02</td>
             <td>content_03</td>
@@ -59,8 +54,7 @@
             <td>content_02</td>
             <td>content_03</td>
         </tr>
-        <tr>
-            
+        <tr>            
             <td>content_01</td>
             <td>content_02</td>
             <td>content_03</td>
