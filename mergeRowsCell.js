@@ -2,6 +2,7 @@
 	合并相邻行内容相同的单元格
     需确保初始化时的列数一致
     实例化之前不可有合并过的单元格,实例化之后可重复执行合并操作
+    website:https://github.com/tabooc/mergeRowsCell
 */
 
 //@param {tableId} String  节点id
@@ -13,6 +14,7 @@ function mergeRowsCell(tableId, col, start) {
     this.start = start || 0; //起始行
     this.rowsLength = this.box.rows.length;
     this.maxLenth = 0;
+    this.runSum = 0;
     this.init();
 }
 //执行行单元格合并后,对应的列数已经变化,需建立MAP方便对应合并
@@ -76,8 +78,14 @@ mergeRowsCell.prototype.merge = function(start, col) {
             next = this.findNode(start, col);
         } else {
             start = this.getCellMark(next)[0];
-            now = this.findNode(start, col);//next -> now,避免引用..
+            if (!start) {
+                return ;
+            }
+            now = this.findNode(start, col); //next -> now,避免引用..
             next = this.findNode(this.getCellMark(now)[0] + now.rowSpan, col);
+
         }
+        // console.log(this.runSum);
+        this.runSum++;
     }
 };
