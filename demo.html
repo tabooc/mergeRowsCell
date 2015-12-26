@@ -2,7 +2,7 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <title>合并相邻行内容相同的纵向单元格</title>    
+    <title>合并相邻行内容相同的单元格</title>    
     <style>
         /* reset */
         html,body,h1,h2,h3,h4,h5,h6,div,dl,dt,dd,ul,ol,li,p,blockquote,pre,hr,figure,table,caption,th,td,form,fieldset,legend,input,button,textarea,menu{margin:0;padding:0;}
@@ -96,11 +96,11 @@
 </div>
 <script src="mergeRowsCell.js"></script>
 <script>
-   var merge = new mergeRowsCell('J_table');
-   merge.merge(0,0);
-   merge.merge(0,1);
+   var demo = new mergeRowsCell('J_table');
+   demo.merge(0,0);
+   demo.merge(0,1);
    //...
-   //merge.merge(0,3);
+   //demo.merge(0,3);
 </script>
 </body>
 </html>
