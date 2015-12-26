@@ -3,6 +3,7 @@
 ### 适用场景
 - 需确保初始化时的列数一致
 - 实例化之前不可有合并过的单元格,实例化之后可重复执行合并操作
+- 适用浏览器:IE8+及现代浏览器
 
 <table id="J_table" class="m-table">
         <tr>
@@ -69,11 +70,12 @@
 
 对以上table执行以下操作:
 ```
- var demo = new mergeRowsCell('J_table');
-   demo.merge(0,0);
-   demo.merge(0,1);
-   //...
-   //demo.merge(0,3);
+var demo = new mergeRowsCell('J_table');
+    //(开始行,需要合并的列)
+    demo.merge(0,0);
+    demo.merge(0,1);
+    //...
+    //demo.merge(1,3);
 ```
 
 效果如下:
