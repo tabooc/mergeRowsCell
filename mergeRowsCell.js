@@ -5,9 +5,9 @@
     website:https://github.com/tabooc/mergeRowsCell
 */
 
-//@param {tableId} String  节点id
-//@param {col} Number  要合并的列
-//@param {start} Number  开始行
+//@param {String} tableId  节点id
+//@param {Number} col 要合并的列
+//@param {Number} start 开始行
 function mergeRowsCell(tableId, col, start) {
     this.box = document.getElementById(tableId); //容器
     this.col = col || 0; //需要合并的列
@@ -38,7 +38,7 @@ mergeRowsCell.prototype.init = function() {
 
 };
 //获取单元格标识
-//@param {mark} element
+//@param {element} ele
 mergeRowsCell.prototype.getCellMark = function(ele) {
     var markArr = [];
 
@@ -52,14 +52,14 @@ mergeRowsCell.prototype.getCellMark = function(ele) {
     return markArr;
 };
 //查找节点
-//@param {row} Number
-//@param {col} Number
+//@param {Number} row
+//@param {Number} col
 mergeRowsCell.prototype.findNode = function(row, col) {
     return this.box.querySelector('th[data-mark="' + (row + '.' + col) + '"]') || this.box.querySelector('td[data-mark="' + (row + '.' + col) + '"]');
 };
 //合并单元格
-//@param {start} Number
-//@param {col} Number
+//@param {Number} start
+//@param {Number} col
 mergeRowsCell.prototype.merge = function(start, col) {
     var rowSpan,
         start = start || this.start,
